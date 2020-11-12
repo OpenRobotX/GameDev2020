@@ -19,8 +19,8 @@ public class CameraManager : MonoBehaviour
     
     void Update()
     {// Wird pro Sekunde 60 mal ausgeführt 
-        xAxis = xAxis + Input.GetAxis("Horizontal");
-        yAxis = yAxis + Input.GetAxis("Vertical");
+        xAxis = xAxis + Input.GetAxis("Horizontal") * speed;
+        yAxis = yAxis + Input.GetAxis("Vertical") * speed;
 
         transform.position = new Vector3(xAxis, yAxis, transform.position.z);
     }
