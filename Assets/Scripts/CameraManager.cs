@@ -22,6 +22,6 @@ public class CameraManager : MonoBehaviour
         xAxis = xAxis + Input.GetAxis("Horizontal") * speed;
         yAxis = yAxis + Input.GetAxis("Vertical") * speed;
 
-        transform.position = new Vector3(xAxis, yAxis, transform.position.z);
+        //transform.position = new Vector3(xAxis, yAxis, transform.position.z);
     }
 }
