@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
+        //Jump
         if(Input.GetButtonDown("Jump") && Mathf.Abs(rig.velocity.y) < 0.001f)
         {
             rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
@@ -34,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         }
         //Move 
         transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * Time.fixedDeltaTime;
-        //Jump
+        //Climb
         if (Input.GetAxisRaw("Vertical") != 0 && canClimb)
         {
             transform.position += new Vector3(0, Input.GetAxisRaw("Vertical"), 0) * speed * Time.fixedDeltaTime;
