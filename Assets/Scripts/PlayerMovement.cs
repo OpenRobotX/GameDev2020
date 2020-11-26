@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
 
     private Rigidbody2D rig;
+    private bool canClimb;
 
     void Start()
     {
@@ -27,5 +28,21 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * Time.fixedDeltaTime;
+        if (Input.GetAxisRaw("Vertical") != 0 && canClimb)
+        {
+            transform.position += new Vector3(0, Input.GetAxisRaw("Vertical"), 0) * speed * Time.fixedDeltaTime;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        canClimb = true;
+        rig.velocity = Vector3.zero;
+        rig.gravityScale = 0;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        canClimb = false;
+        rig.gravityScale = 7;
     }
 }
