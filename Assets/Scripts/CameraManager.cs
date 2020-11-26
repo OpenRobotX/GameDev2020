@@ -10,6 +10,9 @@ public class CameraManager : MonoBehaviour
     private float xAxis;
     private float yAxis;
 
+    public Transform playerTransform;
+    public Vector3 offset;
+
     void Start()
     {// Wird einmal am start ausgeführt 
         xAxis = transform.position.x;
@@ -23,5 +26,6 @@ public class CameraManager : MonoBehaviour
         yAxis = yAxis + Input.GetAxis("Vertical") * speed;
 
         //transform.position = new Vector3(xAxis, yAxis, transform.position.z);
+        transform.position = playerTransform.position + offset;
     }
 }

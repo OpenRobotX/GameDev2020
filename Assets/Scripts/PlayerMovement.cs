@@ -10,12 +10,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     
     void FixedUpdate()
     {
-        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * Time.fixedDeltaTime;
+        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical") * jumpForce, 0) * speed * Time.fixedDeltaTime;
     }
 }
