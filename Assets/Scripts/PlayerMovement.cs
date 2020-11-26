@@ -27,7 +27,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Flip
+        if(Input.GetAxisRaw("Horizontal") != 0)
+        {
+            transform.localScale = new Vector3(Input.GetAxisRaw("Horizontal"), 1, 1);
+        }
+        //Move 
         transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * Time.fixedDeltaTime;
+        //Jump
         if (Input.GetAxisRaw("Vertical") != 0 && canClimb)
         {
             transform.position += new Vector3(0, Input.GetAxisRaw("Vertical"), 0) * speed * Time.fixedDeltaTime;
