@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DeadzoneManager : MonoBehaviour
 {
+    public GameObject ui;
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,6 +14,7 @@ public class DeadzoneManager : MonoBehaviour
             collision.GetComponent<PlayerMovement>().enabled = false;
             collision.GetComponent<Rigidbody2D>().freezeRotation = false;
             collision.GetComponent<Rigidbody2D>().AddTorque(5);
+            ui.SetActive(true);
         }
     }
 }
