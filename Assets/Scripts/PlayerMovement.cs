@@ -36,13 +36,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        canClimb = true;
-        rig.velocity = Vector3.zero;
-        rig.gravityScale = 0;
+        if(collision.name == "Ladder")
+        {
+            canClimb = true;
+            rig.velocity = Vector3.zero;
+            rig.gravityScale = 0;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        canClimb = false;
-        rig.gravityScale = 7;
+        if (collision.name == "Ladder")
+        {
+            canClimb = false;
+            rig.gravityScale = 7;
+        }
     }
 }
