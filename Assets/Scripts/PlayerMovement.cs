@@ -8,14 +8,24 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float jumpForce;
 
+    private Rigidbody2D rig;
+
     void Start()
     {
-
+        rig = GetComponent<Rigidbody2D>();
     }
 
     
     void FixedUpdate()
     {
-        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical") * jumpForce, 0) * speed * Time.fixedDeltaTime;
+        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * Time.fixedDeltaTime;
+    }
+
+    private void Update()
+    {
+        if(Input.GetButtonDown("Jump") && Mathf.Abs(rig.velocity.y) < 0.001f)
+        {
+            rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        }
     }
 }
