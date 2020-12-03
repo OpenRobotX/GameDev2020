@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Rigidbody2D rig;
     private bool canClimb;
 
@@ -34,11 +35,17 @@ public class PlayerMovement : MonoBehaviour
     {
 
 >>>>>>> parent of f6672b1... Update PlayerMovement.cs
+=======
+    void Start()
+    {
+
+>>>>>>> parent of f6672b1... Update PlayerMovement.cs
     }
 
     
     void FixedUpdate()
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         //Flip
@@ -71,6 +78,9 @@ public class PlayerMovement : MonoBehaviour
             canClimb = false;
             rig.gravityScale = 7;
         }
+=======
+        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical") * jumpForce, 0) * speed * Time.fixedDeltaTime;
+>>>>>>> parent of f6672b1... Update PlayerMovement.cs
 =======
         transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical") * jumpForce, 0) * speed * Time.fixedDeltaTime;
 >>>>>>> parent of f6672b1... Update PlayerMovement.cs
