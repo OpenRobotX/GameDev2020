@@ -8,14 +8,16 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float jumpForce;
 
+<<<<<<< HEAD
     private Rigidbody2D rig;
     private bool canClimb;
 
+=======
+>>>>>>> parent of f6672b1... Update PlayerMovement.cs
     void Start()
     {
-        rig = GetComponent<Rigidbody2D>();
-    }
 
+<<<<<<< HEAD
     
     void Update()
     {
@@ -24,10 +26,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
+=======
+>>>>>>> parent of f6672b1... Update PlayerMovement.cs
     }
 
-    private void FixedUpdate()
+    
+    void FixedUpdate()
     {
+<<<<<<< HEAD
         //Flip
         if(Input.GetAxisRaw("Horizontal") != 0)
         {
@@ -58,5 +64,8 @@ public class PlayerMovement : MonoBehaviour
             canClimb = false;
             rig.gravityScale = 7;
         }
+=======
+        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical") * jumpForce, 0) * speed * Time.fixedDeltaTime;
+>>>>>>> parent of f6672b1... Update PlayerMovement.cs
     }
 }
