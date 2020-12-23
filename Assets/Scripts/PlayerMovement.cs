@@ -64,8 +64,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        canClimb = false;
-        rig.gravityScale = 7;
+        if (collision.name == "Ladder")
+        {
+            canClimb = false;
+            rig.gravityScale = 7;
+        }
+        
     }
 
     
