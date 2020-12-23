@@ -11,9 +11,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rig;
     private bool canClimb;
 
+    private Animator anim;
+
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -39,6 +42,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
+
+        //ANIMATIONS
+        anim.SetFloat("isWalking", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+        if(Mathf.Abs(rig.velocity.y) < 0.001f)
+        {
+            anim.SetBool("isJumping", false);
+        }else anim.SetBool("isJumping", true);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -56,4 +67,6 @@ public class PlayerMovement : MonoBehaviour
         canClimb = false;
         rig.gravityScale = 7;
     }
+
+    
 }
