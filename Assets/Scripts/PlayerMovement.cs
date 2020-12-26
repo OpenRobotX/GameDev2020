@@ -12,11 +12,13 @@ public class PlayerMovement : MonoBehaviour
     private bool canClimb;
 
     private Animator anim;
+    private AudioSource jumpSound;
 
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        jumpSound = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -40,11 +42,14 @@ public class PlayerMovement : MonoBehaviour
         //Jump
         if (Input.GetButtonDown("Jump") && Mathf.Abs(rig.velocity.y) < 0.001f)
         {
+            jumpSound.Play();
             rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            
         }
 
         //ANIMATIONS
         anim.SetFloat("isWalking", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+
         if(Mathf.Abs(rig.velocity.y) < 0.001f)
         {
             anim.SetBool("isJumping", false);
@@ -72,5 +77,18 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        Transform obj;
+        if(coll.transform.name == "Platform")
+        {
+            obj = coll.gameObject.transform;
+            transform.SetParent(obj);
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D coll)
+    {
+        transform.SetParent(null);
+    }
 }
