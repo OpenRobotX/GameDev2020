@@ -10,11 +10,18 @@ public class GameManager : MonoBehaviour
         if (collision.transform.name == "Key1")
         {
             key1Collected = true;
-            GameObject.Destroy(collision.transform.gameObject);
+            collision.transform.gameObject.GetComponent<AudioSource>().Play();
+            collision.transform.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            collision.transform.gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
         if (collision.transform.name == "Door1" && key1Collected)
         {
-            GameObject.Destroy(collision.transform.gameObject);
+            collision.transform.gameObject.GetComponent<AudioSource>().Play();
+            collision.transform.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            foreach (SpriteRenderer sprite in collision.transform.gameObject.GetComponentsInChildren<SpriteRenderer>())
+            {
+                sprite.enabled = false;
+            }
         }
     }
 }

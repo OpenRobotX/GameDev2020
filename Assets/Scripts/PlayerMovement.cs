@@ -65,6 +65,11 @@ public class PlayerMovement : MonoBehaviour
             rig.velocity = Vector3.zero;
             rig.gravityScale = 0;
         }
+        if(collision.name == "CheckPoint")
+        {
+            GameObject.Find("StartPoint").GetComponent<Transform>().position = transform.position;
+            collision.transform.gameObject.GetComponent<AudioSource>().Play();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -72,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.name == "Ladder")
         {
             canClimb = false;
-            rig.gravityScale = 7;
+            rig.gravityScale = 6;
         }
         
     }
