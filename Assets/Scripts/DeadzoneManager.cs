@@ -12,6 +12,7 @@ public class DeadzoneManager : MonoBehaviour
         {
             Debug.Log("Player is dead");
             collision.GetComponent<PlayerMovement>().enabled = false;
+            collision.GetComponent<Animator>().enabled = false;
             collision.GetComponent<Rigidbody2D>().freezeRotation = false;
             collision.GetComponent<Rigidbody2D>().AddTorque(5);
             ui.SetActive(true);
