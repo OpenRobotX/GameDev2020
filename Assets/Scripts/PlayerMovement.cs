@@ -14,11 +14,16 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private AudioSource jumpSound;
 
+    public Transform startPoint;
+
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         jumpSound = GetComponent<AudioSource>();
+
+        startPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
+        transform.position = startPoint.position;
     }
 
     void FixedUpdate()
