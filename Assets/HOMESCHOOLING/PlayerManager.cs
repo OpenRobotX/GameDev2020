@@ -1,20 +1,22 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
 
     public float speed;
     public float jumpForce;
 
     private Rigidbody2D rig;
-    private bool canClimb;
 
     private Animator anim;
     private AudioSource jumpSound;
 
     public Transform startPoint;
+
+    public bool canClimb = false;
+    public float gravity = 6f;
 
     void Start()
     {
@@ -23,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         jumpSound = GetComponent<AudioSource>();
 
         startPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
-        //transform.position = startPoint.position;
+        transform.position = startPoint.position;
     }
 
     void FixedUpdate()
@@ -36,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         //Move 
         transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * Time.fixedDeltaTime;
         //Climb
-        if (Input.GetAxisRaw("Vertical") != 0 && canClimb)
+        if (Input.GetAxisRaw("Vertical") != 0 && canClimb) 
         {
             transform.position += new Vector3(0, Input.GetAxisRaw("Vertical"), 0) * speed * Time.fixedDeltaTime;
         }
@@ -45,60 +47,41 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //Jump
-        if (Input.GetButtonDown("Jump") && Mathf.Abs(rig.velocity.y) < 0.001f)
+        if (Input.GetButtonDown("Jump") && Mathf.Abs(rig.velocity.y) < 0.001f && !canClimb)
         {
             jumpSound.Play();
             rig.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            
+
         }
 
         //ANIMATIONS
         anim.SetFloat("isWalking", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
 
-        if(Mathf.Abs(rig.velocity.y) < 0.001f)
+        if (Mathf.Abs(rig.velocity.y) < 0.001f)
         {
             anim.SetBool("isJumping", false);
-        }else anim.SetBool("isJumping", true);
+        }
+        else anim.SetBool("isJumping", true);
 
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "Ladder")
+        if (collision.name == "Ladder") 
         {
             canClimb = true;
-            rig.velocity = Vector3.zero;
             rig.gravityScale = 0;
+            rig.velocity = Vector3.zero;
         }
-        if(collision.name == "CheckPoint")
-        {
-            GameObject.Find("StartPoint").GetComponent<Transform>().position = transform.position;
-            collision.transform.gameObject.GetComponent<AudioSource>().Play();
-        }
-    }
 
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.name == "Ladder")
+        if(collision.name == "Ladder")
         {
             canClimb = false;
-            rig.gravityScale = 6;
+            rig.gravityScale = gravity;
         }
-        
-    }
-
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        Transform obj;
-        if(coll.transform.name == "Platform")
-        {
-            obj = coll.gameObject.transform;
-            transform.SetParent(obj);
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D coll)
-    {
-        transform.SetParent(null);
     }
 }

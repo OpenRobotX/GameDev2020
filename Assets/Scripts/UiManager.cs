@@ -17,7 +17,7 @@ public class UiManager : MonoBehaviour
 
         GameObject.Find("Player").GetComponent<Rigidbody2D>().SetRotation(0);
         GameObject.Find("Player").GetComponent<Rigidbody2D>().freezeRotation = true;
-        GameObject.Find("Player").GetComponent<PlayerMovement>().enabled = true;
+        GameObject.Find("Player").GetComponent<PlayerManager>().enabled = true;
         GameObject.Find("PauseMenu").SetActive(false);
     }
 }
