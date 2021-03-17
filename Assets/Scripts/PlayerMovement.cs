@@ -89,11 +89,9 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        Transform obj;
         if(coll.transform.name == "Platform")
         {
-            obj = coll.gameObject.transform;
-            transform.SetParent(obj);
+            transform.SetParent(coll.gameObject.transform);
         }
     }
 

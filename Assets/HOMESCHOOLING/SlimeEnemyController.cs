@@ -5,7 +5,7 @@ using UnityEngine;
 public class SlimeEnemyController : MonoBehaviour
 {
     private float distance;
-    private float speed = 3f;
+    private float speed = 2f;
 
     public Transform startPos;
 

@@ -7,27 +7,27 @@ public class PlatformManager : MonoBehaviour
     public Transform leftPoint;
     public Transform rightPoint;
 
-    private bool moveLeft;
+    public Transform target;
+    public Vector3 distance;
 
-
+    private void Start()
+    {
+        target.position = leftPoint.position;
+    }
     void FixedUpdate()
     {
-        if (moveLeft)
+        distance = transform.position - target.position;
+
+        if(distance == Vector3.zero && transform.position == leftPoint.position)
         {
-            transform.position = new Vector2(transform.position.x - 0.1f, transform.position.y);
-            if(transform.position.x <= leftPoint.transform.position.x)
-            {
-                moveLeft = false;
-            }
+            target.position = rightPoint.position;
         }
-        if (!moveLeft)
+        else if (distance == Vector3.zero && transform.position == rightPoint.position)
         {
-            transform.position = new Vector2(transform.position.x + 0.1f, transform.position.y);
-            if (transform.position.x >= rightPoint.transform.position.x)
-            {
-                moveLeft = true;
-            }
+            target.position = leftPoint.position;
         }
+
+        transform.position = Vector3.MoveTowards(transform.position, target.position, 0.1f);
     }
     private void OnDrawGizmos()
     {
