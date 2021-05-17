@@ -23,13 +23,13 @@ public class PlayerManager : MonoBehaviour
     public GameObject missilePrefab;
 
     //PowerUps
-    public float powerUpMoveSpeedValue = 1;
-    private float powerUpMoveSpeedTime = 0;
+    public float powerUpMovementSpeedValue = 1f;
+    public float powerUpMovementSpeedTime = 0f;
 
-    public float powerUpJumpHeightValue = 1;
-    private float powerUpJumpHeightTime = 0;
+    public float powerUpJumpHeightValue = 1f;
+    public float powerUpJumpHeightTime = 0f;
 
-    private float powerUpMaxTime = 5;
+    public float powerUpMaxTime = 5f;
     
 
     void Start()
@@ -45,25 +45,26 @@ public class PlayerManager : MonoBehaviour
     void FixedUpdate()
     {
         //PowerUp Countdown Timer
-        if(powerUpMoveSpeedValue != 1)
+        if (powerUpMovementSpeedValue != 1f)
         {
-            powerUpMoveSpeedTime += Time.fixedDeltaTime;
+            powerUpMovementSpeedTime += Time.fixedDeltaTime;
 
-            if(powerUpMoveSpeedTime >= powerUpMaxTime)
+
+            if(powerUpMovementSpeedTime >= powerUpMaxTime)
             {
-                powerUpMoveSpeedValue = 1;
-                powerUpMoveSpeedTime = 0;
+                powerUpMovementSpeedValue = 1f;
+                powerUpMovementSpeedTime = 0f;
             }
         }
 
-        if(powerUpJumpHeightValue != 1)
+        if (powerUpJumpHeightValue != 1f)
         {
             powerUpJumpHeightTime += Time.fixedDeltaTime;
 
             if (powerUpJumpHeightTime >= powerUpMaxTime)
             {
-                powerUpJumpHeightValue = 1;
-                powerUpJumpHeightTime = 0;
+                powerUpJumpHeightValue = 1f;
+                powerUpJumpHeightTime = 0f;
             }
         }
 
@@ -74,7 +75,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         //Move 
-        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * Time.fixedDeltaTime * powerUpMoveSpeedValue;
+        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * powerUpMovementSpeedValue * Time.fixedDeltaTime;
 
         //Climb
         if (Input.GetAxisRaw("Vertical") != 0 && canClimb) 

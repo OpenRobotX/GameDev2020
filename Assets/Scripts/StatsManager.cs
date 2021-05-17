@@ -8,7 +8,7 @@ public class StatsManager : MonoBehaviour
     public int maxHealth;
     public int health;
 
-    public Slider healthBar;
+    public Slider healthbar;
     public GameObject deathPanel;
 
     void Start()
@@ -16,27 +16,28 @@ public class StatsManager : MonoBehaviour
         health = maxHealth;
     }
 
-    
     void Update()
     {
-        if(health <= 0 && healthBar.value != health)
+        if (health <= 0 && healthbar.value != health)
         {
             health = 0;
-            //Player dead
+            Debug.Log("Player is dead");
             GetComponent<PlayerManager>().enabled = false;
             GetComponent<Animator>().enabled = false;
             GetComponent<Rigidbody2D>().freezeRotation = false;
             GetComponent<Rigidbody2D>().AddTorque(5);
+            //GameObject.Find("HitBox").GetComponent<BoxCollider2D>().enabled = false;
             deathPanel.SetActive(true);
         }
-        if(health > maxHealth)
+
+        if (health > maxHealth)
         {
             health = maxHealth;
         }
 
-        if(healthBar.value != health)
+        if(healthbar.value != health)
         {
-            healthBar.value = health;
+            healthbar.value = health;
         }
     }
 }

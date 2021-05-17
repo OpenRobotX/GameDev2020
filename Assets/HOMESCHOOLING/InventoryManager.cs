@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     public bool keyCollected = false;
     public AudioSource keyCollectSound;
     public AudioSource doorOpenSound;
-    public AudioSource powerUpCollectSound;
+    public AudioSource powerUpCollectionSound;
 
     private void Start()
     {
@@ -35,16 +35,16 @@ public class InventoryManager : MonoBehaviour
 
         if (collision.transform.name == "PowerUp_MoveSpeed")
         {
-            myPlayer.GetComponent<PlayerManager>().powerUpMoveSpeedValue = 3;
-            powerUpCollectSound.Play();
-            collision.gameObject.SetActive(false);
+            myPlayer.GetComponent<PlayerManager>().powerUpMovementSpeedValue = 3f;
+            powerUpCollectionSound.Play();
+            collision.transform.gameObject.SetActive(false);
         }
 
         if (collision.transform.name == "PowerUp_JumpHeight")
         {
             myPlayer.GetComponent<PlayerManager>().powerUpJumpHeightValue = 1.5f;
-            powerUpCollectSound.Play();
-            collision.gameObject.SetActive(false);
+            powerUpCollectionSound.Play();
+            collision.transform.gameObject.SetActive(false);
         }
     }
 }

@@ -13,11 +13,9 @@ public class deadzoneManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "Player")
+        if(collision.gameObject.name == "Player")
         {
-            Debug.Log("Player is dead");
-
-            collision.GetComponent<StatsManager>().health = 0;
+            collision.GetComponent<StatsManager>().health -= collision.GetComponent<StatsManager>().maxHealth;
         }
     }
 }
