@@ -18,10 +18,6 @@ public class PlayerManager : MonoBehaviour
     public bool canClimb = false;
     public float gravity = 6f;
 
-    //Missiles
-    public Transform missilePoint;
-    public GameObject missilePrefab;
-
     //PowerUps
     public float powerUpMovementSpeedValue = 1f;
     public float powerUpMovementSpeedTime = 0f;
@@ -30,6 +26,10 @@ public class PlayerManager : MonoBehaviour
     public float powerUpJumpHeightTime = 0f;
 
     public float powerUpMaxTime = 5f;
+
+    //Attack
+    public Transform projectilePoint;
+    public GameObject projectilePrefab;
     
 
     void Start()
@@ -93,13 +93,14 @@ public class PlayerManager : MonoBehaviour
             rig.AddForce(new Vector2(0, jumpForce * powerUpJumpHeightValue), ForceMode2D.Impulse);
 
         }
-
-        if (Input.GetButtonDown("Fire1"))
+        //Attack
+        if(Input.GetButtonDown("Fire1"))
         {
-            GameObject missileClone = (GameObject)Instantiate(missilePrefab, missilePoint.transform.position, transform.rotation);
-            missileClone.transform.eulerAngles = new Vector3(180, 0, 90);
-            missileClone.transform.localScale = new Vector3(1, transform.localScale.x, 1);
+            GameObject projectileClone = (GameObject)Instantiate(projectilePrefab, projectilePoint.transform.position, transform.rotation);
+            projectileClone.transform.eulerAngles = new Vector3(0, 0, 90);
+            projectileClone.transform.localScale = new Vector3(1, transform.localScale.x, 1);
         }
+
 
         //ANIMATIONS
         anim.SetFloat("isWalking", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
@@ -132,7 +133,8 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    //Platform
+    private void OnCollisionEnter2D(Collision2D collision) 
     {
         if(collision.transform.name == "PlatformImages")
         {
@@ -140,11 +142,12 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision) 
     {
-        if (collision.transform.name == "PlatformImages")
+        if(collision.transform.name == "PlatformImages")
         {
             transform.SetParent(null);
         }
     }
+    
 }
