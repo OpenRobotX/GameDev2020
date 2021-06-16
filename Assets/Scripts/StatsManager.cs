@@ -21,13 +21,21 @@ public class StatsManager : MonoBehaviour
         if (health <= 0 && healthbar.value != health)
         {
             health = 0;
-            Debug.Log("Player is dead");
-            GetComponent<PlayerManager>().enabled = false;
-            GetComponent<Animator>().enabled = false;
-            GetComponent<Rigidbody2D>().freezeRotation = false;
-            GetComponent<Rigidbody2D>().AddTorque(5);
-            //GameObject.Find("HitBox").GetComponent<BoxCollider2D>().enabled = false;
-            deathPanel.SetActive(true);
+
+            if(transform.name == "Player")
+            {
+                Debug.Log("Player is dead");
+                GetComponent<PlayerManager>().enabled = false;
+                GetComponent<Animator>().enabled = false;
+                GetComponent<Rigidbody2D>().freezeRotation = false;
+                GetComponent<Rigidbody2D>().AddTorque(5);
+                deathPanel.SetActive(true);
+            }
+            if(transform.tag == "Enemy")
+            {
+                Debug.Log("Enemy is dead");
+                Destroy(gameObject);
+            }
         }
 
         if (health > maxHealth)

@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 
     public float speed;
     public float jumpForce;
+    private bool jumped = false;
 
     private Rigidbody2D rig;
 
@@ -14,8 +15,6 @@ public class PlayerManager : MonoBehaviour
     private AudioSource jumpSound;
 
     public Transform startPoint;
-
-    public bool canClimb = false;
     public float gravity = 6f;
 
     //PowerUps
@@ -30,6 +29,9 @@ public class PlayerManager : MonoBehaviour
     //Attack
     public Transform projectilePoint;
     public GameObject projectilePrefab;
+
+    //Climb
+    public bool canClimb;
     
 
     void Start()
@@ -39,7 +41,7 @@ public class PlayerManager : MonoBehaviour
         jumpSound = GetComponent<AudioSource>();
 
         startPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
-        transform.position = startPoint.position;
+        //transform.position = startPoint.position;
     }
 
     void FixedUpdate()
@@ -78,7 +80,7 @@ public class PlayerManager : MonoBehaviour
         transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * speed * powerUpMovementSpeedValue * Time.fixedDeltaTime;
 
         //Climb
-        if (Input.GetAxisRaw("Vertical") != 0 && canClimb) 
+        if(Input.GetAxisRaw("Vertical") != 0 && canClimb)
         {
             transform.position += new Vector3(0, Input.GetAxisRaw("Vertical"), 0) * speed * Time.fixedDeltaTime;
         }
@@ -91,7 +93,12 @@ public class PlayerManager : MonoBehaviour
         {
             jumpSound.Play();
             rig.AddForce(new Vector2(0, jumpForce * powerUpJumpHeightValue), ForceMode2D.Impulse);
-
+        }
+        else if (Input.GetButtonDown("Jump") && jumped == false){
+            jumped = true;
+            jumpSound.Play();
+            rig.velocity = Vector2.zero;
+            rig.AddForce(new Vector2(0, jumpForce * powerUpJumpHeightValue), ForceMode2D.Impulse);
         }
         //Attack
         if(Input.GetButtonDown("Fire1"))
@@ -101,36 +108,16 @@ public class PlayerManager : MonoBehaviour
             projectileClone.transform.localScale = new Vector3(1, transform.localScale.x, 1);
         }
 
-
         //ANIMATIONS
         anim.SetFloat("isWalking", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
 
         if (Mathf.Abs(rig.velocity.y) < 0.001f)
         {
             anim.SetBool("isJumping", false);
+            jumped = false;
         }
         else anim.SetBool("isJumping", true);
 
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.name == "Ladder") 
-        {
-            canClimb = true;
-            rig.gravityScale = 0;
-            rig.velocity = Vector3.zero;
-        }
-
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.name == "Ladder")
-        {
-            canClimb = false;
-            rig.gravityScale = gravity;
-        }
     }
 
     //Platform
@@ -147,6 +134,25 @@ public class PlayerManager : MonoBehaviour
         if(collision.transform.name == "PlatformImages")
         {
             transform.SetParent(null);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) 
+    {
+        if(collision.name == "Ladder")
+        {
+            canClimb = true;
+            rig.gravityScale = 0;
+            rig.velocity = Vector3.zero;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) 
+    {
+        if(collision.name == "Ladder")
+        {
+            canClimb = false;
+            rig.gravityScale = gravity;
         }
     }
     

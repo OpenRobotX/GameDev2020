@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1921978441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1921978442}
+  m_Layer: 0
+  m_Name: projectilePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1921978442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921978441}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.459, y: -0.451, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 788853907202983622}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &788853907202983640
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,10 +42,11 @@ GameObject:
   - component: {fileID: 788853907202983641}
   - component: {fileID: 788853907202983620}
   - component: {fileID: 788853907202983623}
-  - component: {fileID: 788853907202983621}
   - component: {fileID: 1783773077709545998}
   - component: {fileID: 788853907202983618}
   - component: {fileID: 788853907202983619}
+  - component: {fileID: 2078273041}
+  - component: {fileID: 2078273042}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -30,10 +61,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788853907202983640}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.47, y: -2.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1921978442}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -125,21 +157,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &788853907202983621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 788853907202983640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c573da89777e64ab6324b0247df0ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  jumpForce: 17
-  startPoint: {fileID: 0}
 --- !u!114 &1783773077709545998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,11 +169,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f6ad2439dbcf74e83e0e4b8ed20377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  jumpForce: 0
+  speed: 5
+  jumpForce: 17
   startPoint: {fileID: 0}
-  canClimb: 0
   gravity: 6
+  powerUpMovementSpeedValue: 1
+  powerUpMovementSpeedTime: 0
+  powerUpJumpHeightValue: 1
+  powerUpJumpHeightTime: 0
+  powerUpMaxTime: 5
+  projectilePoint: {fileID: 1921978442}
+  projectilePrefab: {fileID: 8462085510187503802, guid: bdbf5821f625c1745bda360ac82c4d83, type: 3}
+  canClimb: 0
 --- !u!95 &788853907202983618
 Animator:
   serializedVersion: 3
@@ -188,7 +212,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8bb2faedfd46d824b8398c276990de8c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.1
   m_Pitch: 1.2
   Loop: 0
   Mute: 0
@@ -232,7 +256,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.3
+      value: 0.366
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -272,3 +296,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2078273041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788853907202983640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94781041a4789c941abe5a445101ffbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myPlayer: {fileID: 788853907202983640}
+  keyCollected: 0
+  keyCollectSound: {fileID: 0}
+  doorOpenSound: {fileID: 0}
+  powerUpCollectionSound: {fileID: 0}
+--- !u!114 &2078273042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788853907202983640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1b5b2b0c4c63943af590eec8d37ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  health: 0
+  healthbar: {fileID: 0}
+  deathPanel: {fileID: 0}

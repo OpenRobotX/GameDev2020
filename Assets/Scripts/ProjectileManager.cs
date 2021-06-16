@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileManager : MonoBehaviour
 {
     public float speed = 2f;
+    public int damage;
 
      private void FixedUpdate() 
      {
@@ -13,10 +14,10 @@ public class ProjectileManager : MonoBehaviour
 
      private void OnTriggerEnter2D(Collider2D collision) 
      {
-         if(collision.transform.name == "Enemy")
+         if(collision.transform.tag == "Enemy")
          {
-             Destroy(collision.gameObject);
-             Destroy(gameObject);
+            collision.GetComponent<StatsManager>().health -= damage;
+            Destroy(gameObject);
          }
 
          if(collision.transform.name == "Wall")
